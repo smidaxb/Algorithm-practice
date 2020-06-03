@@ -224,12 +224,46 @@ public class Practice {
             }
             leftEnd = i;
         }
-        for (int i = leftEnd+1; i < end; i++) {
+        for (int i = leftEnd + 1; i < end; i++) {
             if (sequence[i] < root) {
                 return false;
             }
         }
         return judgeBST(sequence, start, leftEnd) && judgeBST(sequence, leftEnd + 1, end - 1);
+    }
+
+    /**
+     * 25.复杂链表复制
+     */
+    public RandomListNode Clone(RandomListNode pHead) {
+        if (pHead == null) {
+            return null;
+        }
+        RandomListNode pCur = pHead;
+        //第一步：复制next 如原来是A->B->C 变成A->A'->B->B'->C->C'
+        while (null != pCur) {
+            RandomListNode node = new RandomListNode(pCur.label);
+            node.next = pCur.next;
+            pCur.next = node;
+            pCur = pCur.next.next;
+        }
+        //第二步:复制random
+        pCur = pHead;
+        while (null != pCur) {
+            RandomListNode cur = pCur.next;
+            if (null != pCur.random) {
+                cur.random = pCur.random.next;
+            }
+            pCur = pCur.next.next;
+        }
+        //第三步
+        RandomListNode res = pHead.next;
+        RandomListNode cur = res;
+        while (cur.next!=null){
+            cur.next = cur.next.next;
+            cur = cur.next;
+        }
+        return res;
     }
 }
 
@@ -251,5 +285,15 @@ class TreeNode {
 
     TreeNode(int x) {
         val = x;
+    }
+}
+
+class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
     }
 }
