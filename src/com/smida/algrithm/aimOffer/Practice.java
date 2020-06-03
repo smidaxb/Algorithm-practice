@@ -240,7 +240,7 @@ public class Practice {
             return null;
         }
         RandomListNode pCur = pHead;
-        //第一步：复制next 如原来是A->B->C 变成A->A'->B->B'->C->C'
+        //第一步：复制next 如原来是A->B->C 变成A->A'->B->B'->C->C' A->A'->B->B'
         while (null != pCur) {
             RandomListNode node = new RandomListNode(pCur.label);
             node.next = pCur.next;
@@ -257,11 +257,16 @@ public class Practice {
             pCur = pCur.next.next;
         }
         //第三步
+        pCur = pHead;
         RandomListNode res = pHead.next;
         RandomListNode cur = res;
-        while (cur.next!=null){
-            cur.next = cur.next.next;
-            cur = cur.next;
+        while (null != pCur){
+            pCur.next = pCur.next.next;
+            if (null!= cur.next){
+                cur.next = cur.next.next;
+                cur = cur.next;
+            }
+            pCur = pCur.next;
         }
         return res;
     }
