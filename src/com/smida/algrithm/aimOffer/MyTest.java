@@ -34,4 +34,13 @@ public class MyTest {
         boolean res = aimOffer.VerifySquenceOfBST(array);
         System.out.println(res);
     }
+
+    @Test
+    public void FindNumsAppearOnceTest() {
+        int[] arr = new int[]{2,4,3,6,3,2,5,5};
+        int[] num1 = new int[1];
+        int[] num2 = new int[1];
+        aimOffer.FindNumsAppearOnce(arr,num1,num2);
+        System.out.println(num1[0]+"---"+num2[0]);
+    }
 }

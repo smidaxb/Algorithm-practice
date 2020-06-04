@@ -1,5 +1,7 @@
 package com.smida.algrithm.aimOffer;
 
+import org.hamcrest.core.Is;
+
 import java.util.*;
 
 /**
@@ -260,9 +262,9 @@ public class Practice {
         pCur = pHead;
         RandomListNode res = pHead.next;
         RandomListNode cur = res;
-        while (null != pCur){
+        while (null != pCur) {
             pCur.next = pCur.next.next;
-            if (null!= cur.next){
+            if (null != cur.next) {
                 cur.next = cur.next.next;
                 cur = cur.next;
             }
@@ -270,6 +272,255 @@ public class Practice {
         }
         return res;
     }
+
+    /**
+     * 26.二叉排序树转链表
+     */
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if (null == pRootOfTree) {
+            return null;
+        }
+        ArrayList<TreeNode> list = new ArrayList<>();
+        inOrderToList(list, pRootOfTree);
+        for (int i = 0; i < list.size() - 1; i++) {
+            list.get(i).right = list.get(i + 1);
+            list.get(i + 1).left = list.get(i);
+        }
+        list.get(list.size() - 1).right = null;
+        return list.get(0);
+    }
+
+    private void inOrderToList(ArrayList<TreeNode> list, TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        inOrderToList(list, root.left);
+        list.add(root);
+        inOrderToList(list, root.right);
+    }
+
+    /**
+     * 27字符串全排列
+     * 思路：递归法，问题转换为先固定第一个字符，求剩余字符的排列；求剩余字符排列时跟原问题一样。
+     * (1) 遍历出所有可能出现在第一个位置的字符（即：依次将第一个字符同后面所有字符交换）；
+     * (2) 固定第一个字符，求后面字符的排列（即：在第1步的遍历过程中，插入递归进行实现）。
+     * 需要注意的几点：
+     * (1) 先确定递归结束的条件，例如本题中可设begin == str.size() - 1;
+     * (2) 形如 aba 或 aa 等特殊测试用例的情况，vector在进行push_back时是不考虑重复情况的，需要自行控制；
+     * (3) 输出的排列可能不是按字典顺序排列的，可能导致无法完全通过测试用例，考虑输出前排序，或者递归之后取消复位操作。
+     */
+    public ArrayList<String> Permutation(String str) {
+        ArrayList<String> res = new ArrayList<>();
+        if (null == str || 0 == str.length()) {
+            return null;
+        }
+        char[] arr = str.toCharArray();
+        TreeSet set = new TreeSet();
+        Permutation(arr, 0, set);
+        res.addAll(set);
+        return res;
+    }
+
+    //set用于字典排序
+    private void Permutation(char[] arr, int begin, TreeSet set) {
+        if (begin < 0 || begin > arr.length - 1) {
+            return;
+        }
+
+        if (begin == arr.length - 1) {
+            set.add(String.valueOf(arr));
+            return;
+        }
+        for (int i = begin; i < arr.length; i++) {
+            swap(arr, begin, i);
+            Permutation(arr, begin + 1, set);
+            swap(arr, begin, i);
+        }
+    }
+
+    private void swap(char[] arr, int begin, int i) {
+        char tmp = arr[begin];
+        arr[begin] = arr[i];
+        arr[i] = tmp;
+    }
+
+    /**
+     * 30连续子数组最大和
+     * 思路：动态规划：
+     * max：包含arr[i]的，连续子数组最大值
+     * res：连续子数组最大和
+     */
+    public int FindGreatestSumOfSubArray(int[] array) {
+        int max = array[0];
+        int res = array[0];
+        for (int i = 1; i < array.length; i++) {
+            max = max + array[i] > array[i] ? max + array[i] : array[i];
+            res = res > max ? res : max;
+        }
+        return res;
+    }
+
+    /**
+     * 33丑数
+     * 把只包含质因子2、3和5的数称作丑数（Ugly Number）。
+     * 例如6、8都是丑数，但14不是，因为它包含质因子7。
+     * 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
+     * 思路：穷举
+     */
+    public int GetUglyNumber_Solution(int index) {
+        if (index <= 1) {
+            return index;
+        }
+        int[] uglyNums = new int[index];
+        int n2 = 0, n3 = 0, n5 = 0;
+        uglyNums[0] = 1;
+        for (int i = 1; i < index; i++) {
+            uglyNums[i] = min(uglyNums[n2] * 2, uglyNums[n3] * 3, uglyNums[n5] * 5);
+            if (uglyNums[i] == uglyNums[n2] * 2) {
+                n2++;
+            }
+            if (uglyNums[i] == uglyNums[n3] * 3) {
+                n3++;
+            }
+            if (uglyNums[i] == uglyNums[n5] * 5) {
+                n5++;
+            }
+        }
+        return uglyNums[index - 1];
+    }
+
+    private int min(int a, int b, int c) {
+        if (a < b) {
+            return c < a ? c : a;
+        }
+        return c < b ? c : b;
+    }
+
+    /**
+     * 35数组中的逆序对
+     * 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。
+     * 输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007
+     */
+    private int resultNi = 0;
+
+    public int InversePairs(int[] array) {
+        int[] arrTemp = new int[array.length];
+        int result = 0;
+        //归并排序,传入result进行统计逆序对
+        mergeSort(array, 0, array.length - 1, arrTemp);
+        result = resultNi % 1000000007;
+        resultNi = 0;
+        return result;
+    }
+
+    //归并排序
+    private void mergeSort(int[] array, int left, int right, int[] arrTemp) {
+        if (left >= right)
+            return;
+        int mid = (left + right) / 2;
+        mergeSort(array, left, mid, arrTemp);
+        mergeSort(array, mid + 1, right, arrTemp);
+        //归并
+        merge(array, left, mid, right, arrTemp);
+    }
+
+    private void merge(int[] array, int left, int mid, int right, int[] arrTemp) {
+        int s1 = left, s2 = mid + 1;
+        int sArrTemp = left;
+        int end1 = mid, end2 = right;
+        while (end1 >= left && end2 >= mid + 1) {
+            if (array[end1] > array[end2]) {
+                end1--;
+                resultNi += (end2 - mid);
+                if (resultNi > 1000000007) {
+                    resultNi = resultNi % 1000000007;
+                }
+            } else {
+                end2--;
+            }
+        }
+        while (s1 <= mid && s2 <= right) {
+            if (array[s1] < array[s2]) {
+                arrTemp[sArrTemp] = array[s1];
+                sArrTemp++;
+                s1++;
+            } else {
+                arrTemp[sArrTemp] = array[s2];
+                sArrTemp++;
+                s2++;
+            }
+        }
+        while (s1 <= mid) {
+            arrTemp[sArrTemp] = array[s1];
+            sArrTemp++;
+            s1++;
+        }
+        while (s2 <= right) {
+            arrTemp[sArrTemp] = array[s2];
+            sArrTemp++;
+            s2++;
+        }
+        sArrTemp = left;
+        while (sArrTemp <= right) {
+            array[sArrTemp] = arrTemp[sArrTemp];
+            sArrTemp++;
+        }
+    }
+
+    /**
+     * 38二叉树深度39是否平衡二叉树
+     */
+    public int TreeDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int ldeep = TreeDepth(root.left);
+        int rdeep = TreeDepth(root.right);
+        return ldeep > rdeep ? ldeep + 1 : rdeep + 1;
+    }
+
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if (null == root) {
+            return true;
+        }
+        int i = TreeDepth(root.left) - TreeDepth(root.right);
+        if (Math.abs(i) > 1) {
+            return false;
+        }
+        return IsBalanced_Solution(root.left) && IsBalanced_Solution(root.right);
+    }
+
+    /**
+     * 40数组中只出现一次的两个数字
+     * 可以用位运算实现，如果将所有所有数字相异或，则最后的结果肯定是那两个只出现一次的数字异或
+     * 的结果，所以根据异或的结果1所在的最低位，把数字分成两半，每一半里都还有只出现一次的数据和成对出现的数据
+     * 这样继续对每一半相异或则可以分别求出两个只出现一次的数字
+     */
+    //num1,num2分别为长度为1的数组。传出参数
+    //将num1[0],num2[0]设置为返回结果
+    public void FindNumsAppearOnce(int[] array, int num1[], int num2[]) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        int yihuo = 0;
+        int flag = 1;
+        for (int i = 0; i < array.length; i++) {
+            yihuo ^= array[i];
+        }
+        while ((flag & yihuo) == 0) {
+            flag <<= 1;
+        }
+        for (int i = 0; i < array.length; i++) {
+            if ((array[i] & flag) == 0) {
+                num1[0] ^= array[i];
+                continue;
+            }
+        }
+        num2[0] = num1[0] ^ yihuo;
+    }
+
+
+
 }
 
 
