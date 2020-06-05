@@ -524,26 +524,26 @@ public class Practice {
      * 输出所有和为S的连续正数序列。序列内按照从小至大的顺序，序列间按照开始数字从小到大的顺序
      * 思路：滑动窗口
      */
-    public ArrayList<ArrayList<Integer> > FindContinuousSequence(int sum) {
+    public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
         //存放结果
-        ArrayList<ArrayList<Integer> > result = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
         //两个起点，相当于动态窗口的两边，根据其窗口内的值的和来确定窗口的位置和大小
-        int plow = 1,phigh = 2;
-        while(phigh > plow){
+        int plow = 1, phigh = 2;
+        while (phigh > plow) {
             //由于是连续的，差为1的一个序列，那么求和公式是(a0+an)*n/2
             int cur = (phigh + plow) * (phigh - plow + 1) / 2;
             //相等，那么就将窗口范围的所有数添加进结果集
-            if(cur == sum){
+            if (cur == sum) {
                 ArrayList<Integer> list = new ArrayList<>();
-                for(int i=plow;i<=phigh;i++){
+                for (int i = plow; i <= phigh; i++) {
                     list.add(i);
                 }
                 result.add(list);
                 phigh++;
                 //如果当前窗口内的值之和小于sum，那么右边窗口右移一下
-            }else if(cur < sum){
+            } else if (cur < sum) {
                 phigh++;
-            }else{
+            } else {
                 //如果当前窗口内的值之和大于sum，那么左边窗口右移一下
                 plow++;
             }
@@ -560,6 +560,30 @@ public class Practice {
      */
 
 
+    /**
+     * 47.求1+2+3+...+n
+     * 要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+     * 思路：递归算，boolean值做判断
+     */
+    public int Sum_Solution(int n) {
+        int res = n;
+        //第二个条件表达式重点只是为了计算res，后边的条件可以随便写
+        boolean a = (n > 0) && ((res += Sum_Solution(n - 1)) == 0);
+        return res;
+    }
+
+    /**
+     * 48.非加减乘除做加法
+     * 思路：异或操作算非进位和，按位与再左移操作算进位和，当无进位和时直接异或返回
+     */
+    public int Add(int num1, int num2) {
+        while (num2 != 0) {
+            int tmp = num1 ^ num2;
+            num2 = ((num1 & num2) << 1);
+            num1 = tmp;
+        }
+        return num1 ^ num2;
+    }
 
 }
 

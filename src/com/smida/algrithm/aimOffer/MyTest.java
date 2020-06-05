@@ -43,4 +43,9 @@ public class MyTest {
         aimOffer.FindNumsAppearOnce(arr,num1,num2);
         System.out.println(num1[0]+"---"+num2[0]);
     }
+    @Test
+    public void addTest() {
+        int sum = aimOffer.Add(2,43);
+        System.out.println(sum);
+    }
 }
