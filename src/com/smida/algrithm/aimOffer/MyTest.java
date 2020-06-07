@@ -48,4 +48,12 @@ public class MyTest {
         int sum = aimOffer.Add(2,43);
         System.out.println(sum);
     }
+
+    @Test
+    public void multiplyTest() {
+        int[] res = aimOffer.multiply(new int[]{1, 2, 3, 4, 5});
+        for (int i = 0; i < res.length; i++) {
+            System.out.println(res[i]);
+        }
+    }
 }
