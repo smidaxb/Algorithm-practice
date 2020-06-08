@@ -1,7 +1,5 @@
 package com.smida.algrithm.aimOffer;
 
-import org.hamcrest.core.Is;
-
 import java.util.*;
 
 /**
@@ -415,8 +413,9 @@ public class Practice {
 
     //归并排序
     private void mergeSort(int[] array, int left, int right, int[] arrTemp) {
-        if (left >= right)
+        if (left >= right) {
             return;
+        }
         int mid = (left + right) / 2;
         mergeSort(array, left, mid, arrTemp);
         mergeSort(array, mid + 1, right, arrTemp);
@@ -777,6 +776,129 @@ public class Practice {
             level++;
             sizeList.add(nextSize);
             res.add(arr);
+        }
+        return res;
+    }
+
+    /**
+     * 65矩阵中的路径
+     * 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
+     * 路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。
+     * 如果一条路径经过了矩阵中的某一个格子，则该路径不能再进入该格子。
+     * 思路：回溯法
+     */
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+        if (null == matrix || matrix.length == 0 || null == str || str.length < 1 || matrix.length < rows * cols || str.length > matrix.length) {
+            return false;
+        }
+        boolean[] beUsed = new boolean[matrix.length];
+        for (int index = 0; index < matrix.length; index++) {
+            int i = index / cols;
+            int j = index % cols;
+            if (matrix[index] == str[0]) {
+                //每次开始前重置路径使用数组
+                resetBeUsed(beUsed);
+                //找到path直接返回true
+                if (judgeSuccess(matrix, rows, cols, i, j, str, 0, beUsed)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean judgeSuccess(char[] matrix, int rows, int cols, int i, int j, char[] str, int pathIndex, boolean[] beUsed) {
+        //越界直接返回false
+        if (i < 0 || j < 0 || i >= rows || j >= cols) {
+            return false;
+        }
+        int ind = i * cols + j;
+        //被使用或不等与当前直接返回false
+        if (matrix[ind] != str[pathIndex] || beUsed[ind]) {
+            return false;
+        }
+        beUsed[ind] = true;
+        //若已完成匹配
+        if (pathIndex >= str.length - 1) {
+            return true;
+        }
+        return judgeSuccess(matrix, rows, cols, i, j - 1, str, pathIndex + 1, beUsed)//向左
+                || judgeSuccess(matrix, rows, cols, i, j + 1, str, pathIndex + 1, beUsed)//向右
+                || judgeSuccess(matrix, rows, cols, i - 1, j, str, pathIndex + 1, beUsed)//向上
+                || judgeSuccess(matrix, rows, cols, i + 1, j, str, pathIndex + 1, beUsed);//向下
+    }
+
+    private void resetBeUsed(boolean[] beUsed) {
+        for (int i = 0; i < beUsed.length; i++) {
+            beUsed[i] = false;
+        }
+    }
+
+    /**
+     * 66机器人的运动范围
+     * 地上有一个m行和n列的方格。
+     * 一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。
+     * 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。
+     * 请问该机器人能够达到多少个格子？
+     */
+    public int movingCount(int threshold, int rows, int cols) {
+        if (rows < 1 || cols < 1) {
+            return 0;
+        }
+        boolean[][] isVisited = new boolean[rows][cols];
+        return helper(0, 0, rows, cols, threshold, isVisited);
+    }
+
+    private int helper(int i, int j, int rows, int cols, int threshold, boolean[][] isVisited) {
+        if (i < 0 || j < 0 || i >= rows || j >= cols || getRCNum(i) + getRCNum(j) > threshold || isVisited[i][j] == true) {
+            return 0;
+        }
+        isVisited[i][j] = true;
+        return helper(i - 1, j, rows, cols, threshold, isVisited) +
+                helper(i + 1, j, rows, cols, threshold, isVisited) +
+                helper(i, j - 1, rows, cols, threshold, isVisited) +
+                helper(i, j + 1, rows, cols, threshold, isVisited) + 1;
+    }
+
+    int getRCNum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += (num % 10);
+            num = num / 10;
+        }
+        return sum;
+    }
+
+    /**
+     * 67剪绳子
+     * 给你一根长度为n的绳子，请把绳子剪成整数长的m段（m、n都是整数，n>1并且m>1），每段绳子的长度记为k[0],k[1],...,k[m]。
+     * 请问k[0]*k[1]*...*k[m]可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+     * <p>
+     * 思路：特殊情况：对2：1*1=1，对3：2*1=2，对4：2*2=4；
+     * 绳子长度>=4时，5<2*3，6<3*3，7<5*2<3*2*2......
+     * 故只看2或3，且只有2、3时，3的优先级更高，因为2*2*2<3*3
+     */
+    public int cutRope(int target) {
+        int res = 1;
+        if (target == 2) {
+            return 1;
+        }
+        if (target == 3) {
+            return 2;
+        }
+        int mod3 = target % 3;
+        if (mod3 == 1) {
+            res *= (2 * 2);
+            target = target - res;
+        } else if (mod3 == 2) {
+            res *= 2;
+            target = target - res;
+        }
+        int count3 = target / 3;
+        if (count3 > 0) {
+            for (int i = 0; i < count3; i++) {
+                res *= 3;
+            }
         }
         return res;
     }
