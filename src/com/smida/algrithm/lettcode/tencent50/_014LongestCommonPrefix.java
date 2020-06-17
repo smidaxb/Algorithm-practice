@@ -1,6 +1,7 @@
 package com.smida.algrithm.lettcode.tencent50;
 
 /**
+ * 14.最长公共前缀
  * 编写一个函数来查找字符串数组中的最长公共前缀。
  * <p>
  * 如果不存在公共前缀，返回空字符串 ""。
@@ -18,7 +19,7 @@ package com.smida.algrithm.lettcode.tencent50;
  * <p>
  * 所有输入只包含小写字母 a-z 。
  */
-public class LongestCommonPrefix_014 {
+public class _014LongestCommonPrefix {
     /**
      * O（mn）
      */

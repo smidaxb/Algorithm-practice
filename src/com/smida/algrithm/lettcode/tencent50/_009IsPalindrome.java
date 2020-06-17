@@ -18,7 +18,7 @@ package com.smida.algrithm.lettcode.tencent50;
  * 输出: false
  * 解释: 从右向左读, 为 01 。因此它不是一个回文数。
  */
-public class IsPalindrome_09 {
+public class _009IsPalindrome {
     public static boolean isPalindrome(int x) {
         if (x < 0) {
             return false;

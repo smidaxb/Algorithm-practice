@@ -13,7 +13,7 @@ package com.smida.algrithm.lettcode.tencent50;
  * 输入: "cbbd"
  * 输出: "bb"
  */
-public class LongestPalindrome_05 {
+public class _005LongestPalindrome {
     public static String longestPalindrome(String s) {
         if (null == s || s.length() < 2) {
             return s;

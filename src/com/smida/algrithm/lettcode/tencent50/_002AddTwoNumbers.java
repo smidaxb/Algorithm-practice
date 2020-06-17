@@ -8,7 +8,7 @@ import com.smida.algrithm.ListNode;
  * 输出：7 -> 0 -> 8
  * 原因：342 + 465 = 807
  */
-public class addTwoNumbers_02 {
+public class _002AddTwoNumbers {
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (l1 == null || l2 == null) {

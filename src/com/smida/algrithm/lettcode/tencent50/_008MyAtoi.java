@@ -1,6 +1,7 @@
 package com.smida.algrithm.lettcode.tencent50;
 
 /**
+ * 8字符串转整数
  * 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
  * <p>
  * 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。接下来的转化规则如下：
@@ -15,7 +16,7 @@ package com.smida.algrithm.lettcode.tencent50;
  * 本题中的空白字符只包括空格字符 ' ' 。
  * 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。
  */
-public class MyAtoi_08 {
+public class _008MyAtoi {
     public static int myAtoi(String str) {
         if (null == str || str.trim().length() == 0) {
             return 0;

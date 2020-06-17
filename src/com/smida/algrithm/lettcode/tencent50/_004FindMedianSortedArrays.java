@@ -16,7 +16,7 @@ package com.smida.algrithm.lettcode.tencent50;
  * nums2 = [3, 4]
  * 则中位数是 (2 + 3)/2 = 2.5
  */
-public class FindMedianSortedArrays_04 {
+public class _004FindMedianSortedArrays {
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int size = (null == nums1 ? 0 : nums1.length) + (null == nums2 ? 0 : nums2.length);
         if (size == 0) {
