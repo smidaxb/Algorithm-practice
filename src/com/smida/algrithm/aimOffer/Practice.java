@@ -146,6 +146,9 @@ public class Practice {
      */
     public ArrayList<Integer> printMatrix(int[][] matrix) {
         ArrayList<Integer> arr = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) {
+            return arr;
+        }
         int rows = matrix.length;
         int cols = matrix[0].length;
         int left = 0, right = cols - 1, top = 0, bottom = rows - 1;
