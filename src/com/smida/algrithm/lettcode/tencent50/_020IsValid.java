@@ -1,7 +1,5 @@
 package com.smida.algrithm.lettcode.tencent50;
 
-import com.smida.algrithm.ListNode;
-
 import java.util.*;
 
 /**

@@ -1,6 +1,6 @@
 package com.smida.algrithm.lettcode.tencent50;
 
-import com.smida.algrithm.ListNode;
+import com.smida.algrithm.Node;
 
 /**
  * 23. 合并K个排序链表
@@ -21,15 +21,15 @@ public class _023MergeKLists {
      * 常规
      * O(m*n)
      */
-    public ListNode mergeKLists(ListNode[] lists) {
+    public Node mergeKLists(Node[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
         }
         if (lists.length == 1) {
             return lists[0];
         }
-        ListNode resPre = new ListNode(0);
-        ListNode cur = resPre;
+        Node resPre = new Node(0);
+        Node cur = resPre;
         boolean[] empty = new boolean[lists.length];
         int emptySize = 0;
         while (emptySize < lists.length) {
@@ -39,14 +39,14 @@ public class _023MergeKLists {
                 if (empty[i]) {
                     continue;
                 }
-                ListNode l = lists[i];
+                Node l = lists[i];
                 if (l == null) {
                     empty[i] = true;
                     emptySize++;
                     continue;
                 }
-                if (min > l.val) {
-                    min = l.val;
+                if (min > l.value) {
+                    min = l.value;
                     minInd = i;
                 }
             }
@@ -58,7 +58,7 @@ public class _023MergeKLists {
                 empty[minInd] = true;
                 emptySize++;
             }
-            cur.next = new ListNode(min);
+            cur.next = new Node(min);
             cur = cur.next;
         }
         return resPre.next;
@@ -68,19 +68,19 @@ public class _023MergeKLists {
      * 分治
      * O(log2(m)*n)
      */
-    public ListNode mergeKLists2(ListNode[] lists) {
+    public Node mergeKLists2(Node[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
         }
         int left = 0;
         int right = lists.length - 1;
         int mid = (left + right) / 2;
-        ListNode l1 = mergeKLists2(lists, left, mid);
-        ListNode l2 = mergeKLists2(lists, mid + 1, right);
+        Node l1 = mergeKLists2(lists, left, mid);
+        Node l2 = mergeKLists2(lists, mid + 1, right);
         return mergeTwoLists(l1, l2);
     }
 
-    private ListNode mergeKLists2(ListNode[] lists, int left, int right) {
+    private Node mergeKLists2(Node[] lists, int left, int right) {
         if (left > right) {
             return null;
         }
@@ -94,26 +94,26 @@ public class _023MergeKLists {
     /**
      * 021合并两个有序链表
      */
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public Node mergeTwoLists(Node l1, Node l2) {
         if (null == l1 || null == l2) {
             return null == l1 ? l2 : l1;
         }
-        ListNode resPre = new ListNode(0);
-        ListNode cur = resPre;
+        Node resPre = new Node(0);
+        Node cur = resPre;
         while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                cur.next = new ListNode(l1.val);
+            if (l1.value < l2.value) {
+                cur.next = new Node(l1.value);
                 l1 = l1.next;
             } else {
-                cur.next = new ListNode(l2.val);
+                cur.next = new Node(l2.value);
                 l2 = l2.next;
             }
             cur = cur.next;
         }
         if (l1 != null || l2 != null) {
-            ListNode tmp = l1 != null ? l1 : l2;
+            Node tmp = l1 != null ? l1 : l2;
             while (tmp != null) {
-                cur.next = new ListNode(tmp.val);
+                cur.next = new Node(tmp.value);
                 cur = cur.next;
                 tmp = tmp.next;
             }
