@@ -31,6 +31,32 @@ public class Problem_07_SlidingWindowMaxArray {
         return res;
     }
 
+    public static int[] getMaxWindowMy(int[] arr, int w) {
+        if (null == arr || w < 1 || arr.length < w) {
+            return null;
+        }
+        LinkedList<Integer> indexMaxQue = new LinkedList<>();
+        int[] res = new int[arr.length - w + 1];
+        int resIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            //若indexMaxQue不为空且队尾下标元素小于等于当前元素，从队尾弹出
+            while (!indexMaxQue.isEmpty() && arr[indexMaxQue.peekLast()] <= arr[i]) {
+                indexMaxQue.pollLast();
+            }
+            //当前下标入队
+            indexMaxQue.addLast(i);
+            //若indexMaxQue队首元素下标不在当前窗口中，出队
+            while (!indexMaxQue.isEmpty() && indexMaxQue.peekFirst() + w <= i) {
+                indexMaxQue.pollFirst();
+            }
+            //若当前已能够容下完整窗口，将队首元素放入最大值队列中
+            if (w - i < 2) {
+                res[resIndex++] = arr[indexMaxQue.peekFirst()];
+            }
+        }
+        return res;
+    }
+
     // for test
     public static void printArray(int[] arr) {
         for (int i = 0; i != arr.length; i++) {
@@ -43,6 +69,7 @@ public class Problem_07_SlidingWindowMaxArray {
         int[] arr = {4, 3, 5, 4, 3, 3, 6, 7};
         int w = 3;
         printArray(getMaxWindow(arr, w));
+        printArray(getMaxWindowMy(arr,w));
 
     }
 
