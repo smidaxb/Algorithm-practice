@@ -25,23 +25,6 @@ public class Problem_01_PrintSortedListCommonPart {
         System.out.println();
     }
 
-    public static void printCommonPartMy(Node head1, Node head2) {
-        if (null == head1 || null == head2) {
-            return;
-        }
-        Node p1 = head1;
-        Node p2 = head2;
-        System.out.print("Common Part：");
-        while (null != p1 && null != p2) {
-            if (p1.value==p2.value){
-                System.out.print(p1.value+" ");
-            } else if (p1.value > p2.value) {
-                p2=p2.next;
-                continue;
-            }
-            p1=p1.next;
-        }
-    }
 
     public static void printLinkedList(Node node) {
         System.out.print("Linked List: ");
@@ -68,5 +51,23 @@ public class Problem_01_PrintSortedListCommonPart {
         printLinkedList(node2);
         printCommonPart(node1, node2);
         printCommonPartMy(node1,node2);
+    }
+
+    public static void printCommonPartMy(Node head1, Node head2) {
+        if (null == head1 || null == head2) {
+            return;
+        }
+        Node p1 = head1;
+        Node p2 = head2;
+        System.out.print("Common Part：");
+        while (null != p1 && null != p2) {
+            if (p1.value==p2.value){
+                System.out.print(p1.value+" ");
+            } else if (p1.value > p2.value) {
+                p2=p2.next;
+                continue;
+            }
+            p1=p1.next;
+        }
     }
 }
