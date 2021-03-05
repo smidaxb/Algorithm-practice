@@ -14,23 +14,24 @@ import java.util.LinkedList;
  * num(1)=1
  * num(2)= num(1)+num(1)
  * num(3)=num(2)+num(1)*num(1)+num(2)
- * num(N)=num(0)*1*num(n-1)+num(1)*1*num(n-2)+...+num(i-1)*1*num(N-i)...
+ * num(N)=num(0)*1*num(N-1)+num(1)*1*num(N-2)+...+num(i-1)*1*num(N-i)...+num(N-1)*1*num(0)   i=1~N
  */
 public class Problem_23_UniqueBST {
 
     //My
-    public static int numTreesMy(int n) {
-        if (n < 2) {
+    public static int numTreesMy(int N) {
+        if (N < 2) {
             return 1;
         }
-        int[] res = new int[n + 1];
+        int[] res = new int[N + 1];
         res[0] = 1;
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < i + 1; j++) {
-                res[i] += res[j - 1] * res[i - j];
+        for (int n = 1; n <= N; n++) {
+            //从N=1开始算，一直算到N=N
+            for (int i = 1; i <= n; i++) {
+                res[n] += res[i - 1] * 1 * res[n - i];
             }
         }
-        return res[n];
+        return res[N];
     }
 
     //标准
