@@ -7,15 +7,16 @@ public class Problem_02_MinPathSum {
             return 0;
         }
         int[][] tmp = new int[m.length][m[0].length];
-        for (int i = 0; i < m.length; i++) {
-            tmp[i][0] = m[i][0];
+        tmp[0][0] = m[0][0];
+        for (int i = 1; i < m.length; i++) {
+            tmp[i][0] = tmp[i - 1][0] + m[i][0];
         }
-        for (int i = 0; i < m[0].length; i++) {
-            tmp[0][i] = m[0][i];
+        for (int i = 1; i < m[0].length; i++) {
+            tmp[0][i] = tmp[0][i - 1] + m[0][i];
         }
         for (int i = 1; i < m.length; i++) {
             for (int j = 1; j < m[0].length; j++) {
-                tmp[i][j] = m[i][j] + Math.min(m[i - 1][j], m[i][j - 1]);
+                tmp[i][j] = m[i][j] + Math.min(tmp[i - 1][j], tmp[i][j - 1]);
             }
         }
         return tmp[m.length - 1][m[0].length - 1];
@@ -26,36 +27,21 @@ public class Problem_02_MinPathSum {
         if (m == null || m.length == 0 || m[0] == null || m[0].length == 0) {
             return 0;
         }
-        int less = Math.min(m.length, m[0].length);
+        int row = m.length;
+        int col = m[0].length;
+        int less = row > col ? col : row;
+        int more = row > col ? row : col;
         int[] tmp = new int[less];
-        //列长
-
-        if (m.length > m[0].length) {
-            for (int j = 0; j < m[0].length; j++) {
-                for (int i = 0; i < m.length; i++) {
-                    if (j == 0) {
-                        tmp[i] = m[i][0];
-                    } else {
-                        if (i == 0) {
-                            tmp[i] = tmp[i] + m[i][j];
-                        } else {
-                            tmp[i] = Math.min(tmp[i - 1], tmp[i]) + m[i][j];
-                        }
-                    }
-                }
-            }
-        } else {//行长
-            for (int i = 0; i < m.length; i++) {
-                for (int j = 0; j < m[0].length; j++) {
-                    if (i == 0) {
-                        tmp[j] = m[0][j];
-                    } else {
-                        if (j == 0) {
-                            tmp[j] = tmp[j] + m[i][j];
-                        } else {
-                            tmp[j] = Math.min(tmp[j - 1], tmp[j]) + m[i][j];
-                        }
-                    }
+        tmp[0] = m[0][0];
+        for (int i = 1; i < less; i++) {
+            tmp[i] = tmp[i - 1] + (row > col ? m[0][i] : m[i][0]);
+        }
+        for (int i = 1; i < more; i++) {
+            for (int j = 0; j < less; j++) {
+                if (j == 0) {
+                    tmp[j] += row > col ? m[i][j] : m[j][i];
+                } else {
+                    tmp[j] = Math.min(tmp[j - 1], tmp[j]) + (row > col ? m[i][j] : m[j][i]);
                 }
             }
         }
