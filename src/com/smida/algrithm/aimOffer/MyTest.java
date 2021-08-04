@@ -1,5 +1,6 @@
 package com.smida.algrithm.aimOffer;
 
+import com.smida.algrithm.Node;
 import org.junit.Test;
 
 /**
@@ -79,4 +80,41 @@ public class MyTest {
         }
         return sum;
     }
+
+    /**
+     * 3逆向打印链表
+     */
+    @Test
+    public void q3() {
+        ListNode a = new ListNode(1);
+        a.next = new ListNode(2);
+        System.out.println(aimOffer.printListFromTailToHeadRecursion(a));
+    }
+
+    /**
+     * 4 前中遍历重建二叉树
+     */
+    @Test
+    public void q4() {
+        int[] p = new int[]{1, 2, 4, 7, 3, 5, 6, 8};
+        int[] i = new int[]{4, 7, 2, 1, 5, 3, 8, 6};
+        TreeNode treeNode = aimOffer.reConstructBinaryTree(p, i);
+    }
+
+    /**
+     * 27 字符串全排列
+     */
+    @Test
+    public void q27() {
+        System.out.println(aimOffer.Permutation("abcd"));
+    }
+
+    /**
+     * 35 逆序对
+     */
+    @Test
+    public void q35() {
+        System.out.println(aimOffer.InversePairs(new int[]{3,4,2, 1}));
+    }
+
 }

@@ -29,10 +29,7 @@ public class Practice {
         if (null == listNode) {
             return res;
         }
-        if (null != listNode.next) {
-            printListFromTailToHeadRecursionSub(res, listNode.next);
-        }
-        res.add(listNode.val);
+        printListFromTailToHeadRecursionSub(res, listNode);
         return res;
     }
 
@@ -70,10 +67,11 @@ public class Practice {
                 break;
             }
         }
-        int nextPreEnd = preStart + 1 + (inMid - inStart - 1);
+        int nextPreHalfPreStart = preStart +1 ;
+        int nextPreHalfPreEnd = nextPreHalfPreStart + (inMid - inStart - 1);
         TreeNode root = new TreeNode(in[inMid]);
-        root.left = reConstructBinaryTree(pre, preStart + 1, nextPreEnd, in, inStart, inMid - 1);
-        root.right = reConstructBinaryTree(pre, nextPreEnd + 1, preEnd, in, inMid + 1, inEnd);
+        root.left = reConstructBinaryTree(pre, nextPreHalfPreStart, nextPreHalfPreEnd, in, inStart, inMid - 1);
+        root.right = reConstructBinaryTree(pre, nextPreHalfPreEnd + 1, preEnd, in, inMid + 1, inEnd);
         return root;
     }
 
@@ -316,7 +314,7 @@ public class Practice {
             return null;
         }
         char[] arr = str.toCharArray();
-        TreeSet set = new TreeSet();
+        TreeSet set = new TreeSet(String.CASE_INSENSITIVE_ORDER);
         Permutation(arr, 0, set);
         res.addAll(set);
         return res;
@@ -355,8 +353,8 @@ public class Practice {
         int max = array[0];
         int res = array[0];
         for (int i = 1; i < array.length; i++) {
-            max = max + array[i] > array[i] ? max + array[i] : array[i];
-            res = res > max ? res : max;
+            max = Math.max(max + array[i], array[i]);
+            res = Math.max(res, max);
         }
         return res;
     }
@@ -822,7 +820,7 @@ public class Practice {
         }
         beUsed[ind] = true;
         //若已完成匹配
-        if (pathIndex >= str.length - 1) {
+        if (pathIndex == str.length - 1) {
             return true;
         }
         return judgeSuccess(matrix, rows, cols, i, j - 1, str, pathIndex + 1, beUsed)//向左
