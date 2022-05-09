@@ -35,16 +35,34 @@ package com.smida.algrithm.leetcode.editor.cn;
 public class _5LongestPalindromicSubstring {
     public static void main(String[] args) {
         Solution solution = new _5LongestPalindromicSubstring().new Solution();
+        System.out.println(solution.longestPalindrome("abccccdddadddbaa"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        //
+        //马拉车太复杂，处理下简单中心扩展
         public String longestPalindrome(String s) {
-            String res;
-            int maxInd = 0;
-            int maxLen = 1;
-            return null;
+            String T = preProcess(s);
+            int n = T.length();
+            int[] P = new int[n];
+            for (int i = 0; i < n; i++) {
+                int pv = 0;
+                while ((i + pv) < n && (i - pv) >= 0 && T.charAt(i + pv) == T.charAt(i - pv)) {
+                    P[i] = pv;
+                    pv++;
+                }
+            }
+            int ind = 0;
+            int val = 0;
+            for (int i = 0; i < n; i++) {
+                if (P[i] > val) {
+                    val = P[i];
+                    ind = i;
+                }
+            }
+            int start = (ind - val) / 2;
+            int end = start + val;
+            return s.substring(start, end);
         }
 
         // abc -->  ^#a#b#c#$
