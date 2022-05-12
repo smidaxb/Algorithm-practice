@@ -120,6 +120,33 @@ public class _5LongestPalindromicSubstring {
             int start = (centerIndex - maxLen) / 2; //最开始讲的求原字符串下标
             return s.substring(start, start + maxLen);
         }
+
+        public String longestPalindrome3(String s) {
+            if (null == s || s.length() < 2) {
+                return s;
+            }
+            String res = "";
+            int max = 0;
+            for (int i = 0; i < s.length() - 1; i++) {
+                int left = i;
+                int right = i;
+                //直接把相同元素走完
+                while (right < s.length() - 1 && s.charAt(right + 1) == s.charAt(left)) {
+                    right++;
+                }
+                //接着再两头扩展
+                while (left >= 0 && right <= s.length() - 1 && s.charAt(left) == s.charAt(right)) {
+                    int len = right - left + 1;
+                    if (len > max) {
+                        res = s.substring(left, left + len);
+                        max = len;
+                    }
+                    right++;
+                    left--;
+                }
+            }
+            return res;
+        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
