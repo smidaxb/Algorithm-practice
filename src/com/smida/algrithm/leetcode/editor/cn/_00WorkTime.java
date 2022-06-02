@@ -7,8 +7,8 @@ import java.time.LocalTime;
  */
 public class _00WorkTime {
     public static void main(String[] args) {
-        LocalTime s = LocalTime.of(10, 14);
-        LocalTime e = LocalTime.of(20, 29);
+        LocalTime s = LocalTime.of(9, 58);
+        LocalTime e = LocalTime.of(20, 22);
         Double abs = e.getHour() * 1.0 - s.getHour() * 1.0 + (e.getMinute() - s.getMinute()) / 60.0 - 10;
         System.out.println("**************** " + String.format("%.2f", abs) + " ***************");
     }
