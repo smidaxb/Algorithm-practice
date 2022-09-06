@@ -1,6 +1,6 @@
 package com.smida.algrithm.newCode;
 
-import com.smida.algrithm.newCode.base.b01.code.MySort;
+import com.smida.algrithm.newCode.base.b02.MySort2;
 
 import java.util.Arrays;
 
@@ -77,21 +77,19 @@ public class SortUtil {
         int maxSize = 100;
         int maxValue = 100;
         boolean succeed = true;
+
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            MySort.MergeSort(arr1);
+            MySort2.HeapSort(arr1);
             comparator(arr2);
             if (!isEqual(arr1, arr2)) {
                 succeed = false;
+                printArray(arr1);
+                printArray(arr2);
                 break;
             }
         }
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-
-        int[] arr = generateRandomArray(maxSize, maxValue);
-        printArray(arr);
-        MySort.MergeSort(arr);
-        printArray(arr);
     }
 }
