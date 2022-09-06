@@ -1,13 +1,13 @@
-package com.smida.algrithm.newCode.base.b01.code;
+package com.smida.algrithm.newCode.base.b01;
 
 import com.smida.algrithm.newCode.SortUtil;
 
 /**
- * 排序
+ * b01
  * CREATED BY yangyifan
  * Date: 2020/6/9
  */
-public class MySort {
+public class MySort1 {
     /**
      * 1.冒泡排序
      * 时间复杂度：
@@ -20,12 +20,12 @@ public class MySort {
             return;
         }
         //从最后一位开始递减
-        for (int end = arr.length - 1; end >= 0; end--) {
+        for (int endInd = arr.length - 1; endInd >= 0; endInd--) {
             int swapCount = 0;
             //每次会有一个元素到达终点位置
-            for (int i = 0; i < end; i++) {
-                if (arr[i] > arr[i + 1]) {
-                    SortUtil.swap(arr, i, i + 1);
+            for (int startInd = 0; startInd < endInd; startInd++) {
+                if (arr[startInd] > arr[startInd + 1]) {
+                    SortUtil.swap(arr, startInd, startInd + 1);
                     swapCount++;
                 }
             }
@@ -111,5 +111,44 @@ public class MySort {
         for (int i = left; i <= right; i++) {
             arr[i] = tmpArr[i];
         }
+    }
+
+    /**
+     * 小和问题/逆序对问题
+     */
+    public static int smallSum(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return 0;
+        }
+        int[] tmpArr = new int[arr.length];
+        return smallSum(arr, 0, arr.length - 1, tmpArr);
+    }
+
+    private static int smallSum(int[] arr, int left, int right, int[] tmpArr) {
+        if (left >= right) {
+            return 0;
+        }
+        int mid = (left + right) / 2;
+        int smallSumL = smallSum(arr, left, mid, tmpArr);
+        int smallSumR = smallSum(arr, mid + 1, right, tmpArr);
+        int smallSumMerge = 0;
+        int index = left;
+        int left1 = left, left2 = mid + 1;
+        while (left1 <= mid && left2 <= right) {
+            //小于算小和，大于可算逆序对
+            smallSumMerge += arr[left1] < arr[left2] ? (right - left2 + 1) * arr[left1] : 0;
+            //正常merge
+            tmpArr[index++] = arr[left1] > arr[left2] ? arr[left2++] : arr[left1++];
+        }
+        while (left1 <= mid) {
+            tmpArr[index++] = arr[left1++];
+        }
+        while (left2 <= right) {
+            tmpArr[index++] = arr[left2++];
+        }
+        for (int i = left; i <= right; i++) {
+            arr[i] = tmpArr[i];
+        }
+        return smallSumL + smallSumR + smallSumMerge;
     }
 }
