@@ -150,11 +150,59 @@ public class MySort2 {
     }
 
     /**
-     * 找中位数
+     * 找中位数,endInd为截止位置
      * 用俩堆，大顶堆存小值，小顶堆里存大值，保持两个堆size平衡
      */
-    public static int findMidNum(int[] arr) {
-        return 0;
+    public static int findMidNum(int[] arr, int endInd) {
+        int[] small = new int[endInd + 1];
+        int[] big = new int[endInd + 1];
+        int smallSize = 0, bigSize = 0;
+        for (int i = 0; i <= endInd; i++) {
+            int smallTopVal = small[0];
+            //大顶堆存小值，小顶堆存大值
+            if (arr[i] > smallTopVal) {
+                small[smallSize++] = arr[i];
+                heapSmallInsert(small, smallSize - 1);
+            } else {
+                big[bigSize++] = arr[i];
+                heapBigInsert(big, bigSize - 1);
+            }
+            //平衡两个堆
+            int moveVal;
+            if (smallSize - bigSize > 1) {
+                //小顶堆堆顶进大顶堆
+                //小顶堆顶出堆，最后一个节点成为新顶点再堆化
+                moveVal = small[0];
+                SortUtil.swap(small, 0, smallSize - 1);
+                smallSize--;
+                heapSmallFy(small, smallSize - 1, 0);
+                //刚才的小顶堆顶分到大顶堆中
+                big[bigSize++] = moveVal;
+                heapBigInsert(big, bigSize - 1);
+            } else if (bigSize - smallSize > 1) {
+                //与上边相反
+                moveVal = big[0];
+                SortUtil.swap(big, bigSize - 1, 0);
+                bigSize--;
+                heapBigFy(big, bigSize - 1, 0);
+                small[smallSize++] = moveVal;
+                heapSmallInsert(small, smallSize - 1);
+            }
+        }
+        SortUtil.printArray(big);
+        SortUtil.printArray(small);
+        if (bigSize > smallSize) {
+            return big[0];
+        } else if (bigSize < smallSize) {
+            return small[0];
+        } else {
+            return (big[0] + small[0]) / 2;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11};
+        System.out.println(findMidNum(arr,arr.length-1));
     }
 
 }
