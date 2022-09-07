@@ -8,6 +8,8 @@ import com.smida.algrithm.newCode.SortUtil;
  * Date: 2020/6/9
  */
 public class MySort1 {
+    private static int anInt;
+
     /**
      * 1.冒泡排序
      * 时间复杂度：
@@ -149,6 +151,6 @@ public class MySort1 {
         for (int i = left; i <= right; i++) {
             arr[i] = tmpArr[i];
         }
-        return smallSumL + smallSumR + smallSumMerge;
+        return anInt;
     }
 }
