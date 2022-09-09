@@ -29,29 +29,33 @@ public class Problem_02_RotateMatrix {
         if (null == matrix || matrix.length == 0 || null == matrix[0] || matrix[0].length == 0) {
             return;
         }
-        int topI = 0;
-        int topJ = 0;
-        int bottomI = matrix.length - 1;
-        int bottomJ = matrix[0].length - 1;
+        int top = 0;
+        int left = 0;
+        int bottom = matrix.length - 1;
+        int right = matrix[0].length - 1;
         //n为这一圈需要调整的组数
         int n = matrix.length - 1;
-        while (topI < bottomI && topJ < bottomJ) {
-            rotateCircle(matrix, topI, topJ, bottomI, bottomJ, n);
-            topI++;
-            topJ++;
-            bottomI--;
-            bottomJ--;
+        while (top < bottom && left < right) {
+            rotateCircle(matrix, top, left, bottom, right, n);
+            top++;
+            left++;
+            bottom--;
+            right--;
             n -= 2;
         }
     }
 
-    private static void rotateCircle(int[][] matrix, int topI, int topJ, int bottomI, int bottomJ, int n) {
+    private static void rotateCircle(int[][] matrix, int top, int left, int bottom, int right, int n) {
         for (int i = 0; i < n; i++) {
-            int tmp = matrix[topI][topJ + i];
-            matrix[topI][topJ + i] = matrix[bottomI - i][topJ];
-            matrix[bottomI - i][topJ] = matrix[bottomI][bottomJ - i];
-            matrix[bottomI][bottomJ - i] = matrix[topI + i][bottomJ];
-            matrix[topI + i][bottomJ] = tmp;
+            int tmp = matrix[top][left + i];
+            //上边 == 左边
+            matrix[top][left + i] = matrix[bottom - i][left];
+            //左边 == 下边
+            matrix[bottom - i][left] = matrix[bottom][right - i];
+            //下边 == 右边
+            matrix[bottom][right - i] = matrix[top + i][right];
+            //右边 == 原上边
+            matrix[top + i][right] = tmp;
         }
     }
 

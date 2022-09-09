@@ -30,7 +30,7 @@ public class Problem_03_PrintMatrixAsZ {
         while (aI < matrix.length) {
             printLine(matrix, aI, aJ, bI, bJ, fromUpToDown);
             fromUpToDown = !fromUpToDown;
-            //ai后走，因此先判断ai，否则当aj达到临界值时，ai刚好会先多走一步，同理bj后走，先判断bj
+            //a是先到右边界了再往下，先判断要不要往下走，避免右走一步直接往下，同理，b先判断要不要往右走
             //ai先不变，a走到右上之后，开始往下走
             aI = (aJ == matrix[0].length - 1) ? aI+1 : aI;
             //a没走到右上就往右走，否则aj不变

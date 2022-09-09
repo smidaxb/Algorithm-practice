@@ -152,22 +152,22 @@ public class Practice {
         int left = 0, right = cols - 1, top = 0, bottom = rows - 1;
         while (left <= right && top <= bottom) {
             //从左到右
-            for (int i = left; i <= right; i++) {
+            for (int i = left; i < right; i++) {
                 arr.add(matrix[top][i]);
             }
             //从上到下
-            for (int i = top + 1; i <= bottom; i++) {
+            for (int i = top + 1; i < bottom; i++) {
                 arr.add(matrix[i][right]);
             }
             //从右到左，判断一行情况
             if (top != bottom) {
-                for (int i = right - 1; i >= left; i--) {
+                for (int i = right; i > left; i--) {
                     arr.add(matrix[bottom][i]);
                 }
             }
             //从下到上，判断一列情况
             if (left != right) {
-                for (int i = bottom - 1; i >= top + 1; i--) {
+                for (int i = bottom; i > top; i--) {
                     arr.add(matrix[i][left]);
                 }
             }
