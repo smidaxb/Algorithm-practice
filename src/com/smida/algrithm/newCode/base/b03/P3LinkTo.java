@@ -29,6 +29,12 @@ package com.smida.algrithm.newCode.base.b03;
  * 在排好序的矩阵中找数
  * 思路：从右上角找，比要找的大就往左，比要找的数小就往下
  * 代码：com.smida.algrithm.book_zuo.chapter_8_arrayandmatrix.Problem_07_FindNumInSortedMatrix
+ *
+ * 复制随机指针链表
+ * 思路：
+ * 空间复杂度n：用Map，key位原节点，value位复制节点
+ * 空间复杂度1：每一个节点后边复制一个一样的，a.next = a'.next a.value = a'.value
+ * 代码见：com.smida.algrithm.book_zuo.chapter_2_listproblem.Problem_09_CopyListWithRandom
  * @author YYF
  * @date 2022/9/8 11:07.
  */
