@@ -29,29 +29,22 @@ public class Problem_01_PreInPosTravel {
         System.out.println();
     }
 
-    //用栈，1头入栈；2左不为空左一直入栈；3出栈，右不为空入循环23；
+    //用栈，1栈不空或当前不空进循环 2当前不空当前入栈，当前指向左子树；当前为空时令当前指向出栈元素，打印，当前指向右子树
     public static void inOrder(TreeNode head) {
         if (null == head) {
             return;
         }
         Stack<TreeNode> stack = new Stack<>();
         System.out.println("非递归中序遍历：");
-        stack.push(head);
-        TreeNode p = head;
-        while (null != p.left) {
-            stack.push(p.left);
-            p = p.left;
-        }
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-            System.out.print("   " + node.value);
-            if (null != node.right) {
-                stack.push(node.right);
-                TreeNode p1 = node.right;
-                while (null != p1.left) {
-                    stack.push(p1.left);
-                    p1 = p1.left;
-                }
+        TreeNode cur = head;
+        while (null != cur || !stack.isEmpty()) {
+            if (null != cur) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                System.out.print("   " + cur.value);
+                cur = cur.right;
             }
         }
         System.out.println();

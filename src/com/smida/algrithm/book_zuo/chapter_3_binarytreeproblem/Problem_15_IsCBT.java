@@ -20,18 +20,17 @@ public class Problem_15_IsCBT {
         boolean leafBegin = false;
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
-
+            if (null != node.right && null == node.left) {
+                return false;
+            }
             if (null != node.left) {
                 queue.add(node.left);
             }
             if (null != node.right) {
-                if (null == node.left) {
-                    return false;
-                }
                 queue.add(node.right);
             }
-            if (leafBegin) {
-                return null == node.left && null == node.right;
+            if (leafBegin && (null != node.left || null != node.right)) {
+                return false;
             }
             if (null == node.right) {
                 leafBegin = true;
@@ -75,8 +74,9 @@ public class Problem_15_IsCBT {
         head.left = new TreeNode(2);
         head.right = new TreeNode(6);
         head.left.left = new TreeNode(1);
-//        head.left.right = new TreeNode(3);
         head.left.right = null;
+//        head.left.right = new TreeNode(3);
+        head.right.right = null;
         head.right.left = new TreeNode(5);
 
         printTree(head);
