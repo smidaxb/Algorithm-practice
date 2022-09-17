@@ -2,6 +2,8 @@ package com.smida.algrithm.newCode.base.b02;
 
 import com.smida.algrithm.newCode.SortUtil;
 
+import java.util.PriorityQueue;
+
 /**
  * Description:b02
  *
@@ -200,6 +202,35 @@ public class MySort2 {
         }
     }
 
+    public static int FindMidNum2(int[] arr) {
+        PriorityQueue<Integer> small = new PriorityQueue<>();
+        PriorityQueue<Integer> big = new PriorityQueue<>((o1, o2) -> o2 - o1);
+        for (int i = 0; i <arr.length; i++) {
+            //大顶堆存小值，小顶堆存大值
+            if (small.isEmpty() || arr[i] > small.peek().intValue()) {
+                small.add(arr[i]);
+            } else {
+                big.add(arr[i]);
+            }
+            //平衡两个堆
+            int moveVal;
+            if (small.size() - big.size() >= 1) {
+                //小顶堆堆顶进大顶堆
+                big.add(small.poll());
+            } else {
+                //与上边相反
+                small.add(big.poll());
+            }
+        }
+        if (big.size() > small.size()) {
+            return big.peek();
+        } else if (big.size() < small.size()) {
+            return small.peek();
+        } else {
+            return (big.peek() + small.peek()) / 2;
+        }
+    }
+
     /**
      * 给定数组求排序后相邻最大差值
      * 要求时间复杂度n，不能用非基于比较的排序
@@ -253,6 +284,9 @@ public class MySort2 {
     public static void main(String[] args) {
         int[] arr = new int[]{1, 22, 233, 4, 533, 66, 7, 89, 9, 10, 11};
         System.out.println(MaxGap(arr));
+        arr = new int[]{1,2,3,5,9};
+        System.out.println(FindMidNum(arr,arr.length-1));
+        System.out.println(FindMidNum2(arr));
     }
 
 }
