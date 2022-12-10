@@ -2,9 +2,6 @@ package com.smida.algrithm.book_zuo.chapter_3_binarytreeproblem;
 
 import com.smida.algrithm.newCode.TreeNode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-
 /**
  * 最近共同祖先
  */
@@ -49,7 +46,7 @@ public class Problem_18_LowestCommonAncestor {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;
@@ -82,10 +79,10 @@ public class Problem_18_LowestCommonAncestor {
         TreeNode o1 = head.left.right;
         TreeNode o2 = head.right.left;
 
-        System.out.println("o1 : " + o1.value);
-        System.out.println("o2 : " + o2.value);
-        System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
-        System.out.println("ancestor : " + lowestAncestorMy(head, o1, o2).value);
+        System.out.println("o1 : " + o1.val);
+        System.out.println("o2 : " + o2.val);
+        System.out.println("ancestor : " + lowestAncestor(head, o1, o2).val);
+        System.out.println("ancestor : " + lowestAncestorMy(head, o1, o2).val);
         System.out.println("===============");
 
     }

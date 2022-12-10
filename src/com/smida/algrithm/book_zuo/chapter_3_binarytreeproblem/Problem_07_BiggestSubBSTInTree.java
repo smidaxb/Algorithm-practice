@@ -30,10 +30,10 @@ public class Problem_07_BiggestSubBSTInTree {
         int rMin = record[1];
         int rMax = record[2];
         //若跟节点与左右最大子树能拼成更大的BST，返回跟节点
-        if (head.left == lMSubBST && head.right == rMSubBST && head.value > lMax && head.value < rMin) {
+        if (head.left == lMSubBST && head.right == rMSubBST && head.val > lMax && head.val < rMin) {
             record[0] = lSize + rSize + 1;
-            record[1] = Math.min(lMin,head.value);
-            record[2] = Math.max(rMax,head.value);
+            record[1] = Math.min(lMin,head.val);
+            record[2] = Math.max(rMax,head.val);
             return head;
         }
         //其他情况下，返回节点更多的子树
@@ -57,7 +57,7 @@ public class Problem_07_BiggestSubBSTInTree {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;

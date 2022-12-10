@@ -1,6 +1,5 @@
 package com.smida.algrithm.book_zuo.chapter_3_binarytreeproblem;
 
-import com.smida.algrithm.Node;
 import com.smida.algrithm.newCode.TreeNode;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class Problem_10_WrongNodeRecover {
         inOrder(head, list);
         int count = 0;
         for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i).value > list.get(i + 1).value) {
+            if (list.get(i).val > list.get(i + 1).val) {
                 if (count > 0) {
                     res[1] = list.get(i + 1);
                     return res;
@@ -56,7 +55,7 @@ public class Problem_10_WrongNodeRecover {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;
@@ -85,21 +84,21 @@ public class Problem_10_WrongNodeRecover {
         printTree(head);
 
         //2 5
-        head.value = 2;
-        head.left.left.value = 5;
+        head.val = 2;
+        head.left.left.val = 5;
         TreeNode[] res = getErrorNodes(head);
         for (TreeNode re : res) {
-            System.out.println(re.value);
+            System.out.println(re.val);
         }
 
         //3 5
-        head.value = 5;
-        head.left.left.value = 2;
-        head.value = 3;
-        head.left.value = 5;
+        head.val = 5;
+        head.left.left.val = 2;
+        head.val = 3;
+        head.left.val = 5;
         res = getErrorNodes(head);
         for (TreeNode re : res) {
-            System.out.println(re.value);
+            System.out.println(re.val);
         }
     }
 }

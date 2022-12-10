@@ -20,7 +20,7 @@ public class Problem_04_SerializeAndReconstructTree {
 		if (head == null) {
 			return "#!";
 		}
-		String res = head.value + "!";
+		String res = head.val + "!";
 		res += serialByPre(head.left);
 		res += serialByPre(head.right);
 		return res;
@@ -50,19 +50,19 @@ public class Problem_04_SerializeAndReconstructTree {
 		if (head == null) {
 			return "#!";
 		}
-		String res = head.value + "!";
+		String res = head.val + "!";
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(head);
 		while (!queue.isEmpty()) {
 			head = queue.poll();
 			if (head.left != null) {
-				res += head.left.value + "!";
+				res += head.left.val + "!";
 				queue.offer(head.left);
 			} else {
 				res += "#!";
 			}
 			if (head.right != null) {
-				res += head.right.value + "!";
+				res += head.right.val + "!";
 				queue.offer(head.right);
 			} else {
 				res += "#!";
@@ -113,7 +113,7 @@ public class Problem_04_SerializeAndReconstructTree {
 			return;
 		}
 		printInOrder(head.right, height + 1, "v", len);
-		String val = to + head.value + to;
+		String val = to + head.val + to;
 		int lenM = val.length();
 		int lenL = (len - lenM) / 2;
 		int lenR = len - lenM - lenL;

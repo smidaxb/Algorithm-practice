@@ -18,7 +18,7 @@ public class Problem_01_PreInPosTravel {
         stack.push(head);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            System.out.print("   " + node.value);
+            System.out.print("   " + node.val);
             if (null != node.right) {
                 stack.push(node.right);
             }
@@ -43,7 +43,7 @@ public class Problem_01_PreInPosTravel {
                 cur = cur.left;
             } else {
                 cur = stack.pop();
-                System.out.print("   " + cur.value);
+                System.out.print("   " + cur.val);
                 cur = cur.right;
             }
         }
@@ -70,7 +70,7 @@ public class Problem_01_PreInPosTravel {
             }
         }
         while (!stack2.isEmpty()) {
-            System.out.print("   " + stack2.pop().value);
+            System.out.print("   " + stack2.pop().val);
         }
         System.out.println();
     }

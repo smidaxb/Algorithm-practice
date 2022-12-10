@@ -21,7 +21,7 @@ public class Problem_09_PrintBinaryTreeByLevelAndZigZag {
         while (!que.isEmpty()) {
             TreeNode node = que.pollFirst();
             len--;
-            System.out.print("  " + node.value);
+            System.out.print("  " + node.val);
             if (null != node.left) {
                 que.addLast(node.left);
                 nextLen++;
@@ -63,11 +63,11 @@ public class Problem_09_PrintBinaryTreeByLevelAndZigZag {
             if (len == 0) {
                 if (level % 2 == 1) {
                     while (!arr.isEmpty()) {
-                        System.out.print("  " + arr.pollFirst().value);
+                        System.out.print("  " + arr.pollFirst().val);
                     }
                 } else {
                     while (!arr.isEmpty()) {
-                        System.out.print("  " + arr.pollLast().value);
+                        System.out.print("  " + arr.pollLast().val);
                     }
                 }
                 System.out.println();
@@ -91,7 +91,7 @@ public class Problem_09_PrintBinaryTreeByLevelAndZigZag {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;

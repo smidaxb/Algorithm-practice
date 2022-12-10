@@ -22,7 +22,7 @@ public class Problem_11_T1ContainsT2Topology {
         if (null == t1) {
             return false;
         }
-        return t1.value == t2.value && contain(t1.left, t2.left) && contain(t1.right, t2.right);
+        return t1.val == t2.val && contain(t1.left, t2.left) && contain(t1.right, t2.right);
     }
 
     public static void main(String[] args) {

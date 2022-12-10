@@ -37,9 +37,9 @@ public class P4LinkTo {
         if (head == null) {
             return true;
         }
-        int lv = null != head.left ? head.left.value : Integer.MIN_VALUE;
-        int rv = null != head.right ? head.right.value : Integer.MAX_VALUE;
-        if (lv > head.value || head.value > rv) {
+        int lv = null != head.left ? head.left.val : Integer.MIN_VALUE;
+        int rv = null != head.right ? head.right.val : Integer.MAX_VALUE;
+        if (lv > head.val || head.val > rv) {
             return false;
         }
         return judgeSearchTree(head.left) && judgeSearchTree(head.left.right);
@@ -59,10 +59,10 @@ public class P4LinkTo {
             }else {
                 head = stack.pop();
                 //把中序遍历打印的换成比较
-                if (head.value < pre) {
+                if (head.val < pre) {
                     return false;
                 }
-                pre = head.value;
+                pre = head.val;
                 head = head.right;
             }
         }

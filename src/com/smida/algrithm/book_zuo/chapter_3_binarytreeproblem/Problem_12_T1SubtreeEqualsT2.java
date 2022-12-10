@@ -17,7 +17,7 @@ public class Problem_12_T1SubtreeEqualsT2 {
 		if (head == null) {
 			return "#!";
 		}
-		String res = head.value + "!";
+		String res = head.val + "!";
 		res += serialByPre(head.left);
 		res += serialByPre(head.right);
 		return res;
@@ -84,7 +84,7 @@ public class Problem_12_T1SubtreeEqualsT2 {
         if (null == t1) {
             return false;
         }
-        return t1.value == t2.value && same(t1.left, t2.left) && same(t1.right, t2.right);
+        return t1.val == t2.val && same(t1.left, t2.left) && same(t1.right, t2.right);
     }
 
     public static void main(String[] args) {

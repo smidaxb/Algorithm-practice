@@ -1,7 +1,5 @@
 package com.smida.algrithm.newCode;
 
-import com.smida.algrithm.newCode.TreeNode;
-
 public class TreeUtil {
 
 
@@ -16,7 +14,7 @@ public class TreeUtil {
 			return;
 		}
 		printInOrder(head.right, height + 1, "v", len);
-		String val = to + head.value + to;
+		String val = to + head.val + to;
 		int lenM = val.length();
 		int lenL = (len - lenM) / 2;
 		int lenR = len - lenM - lenL;

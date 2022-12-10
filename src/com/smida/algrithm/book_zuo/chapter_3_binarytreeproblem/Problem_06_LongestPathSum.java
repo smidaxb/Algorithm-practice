@@ -21,7 +21,7 @@ public class Problem_06_LongestPathSum {
 		if (head == null) {
 			return maxLen;
 		}
-		int curSum = preSum + head.value;
+		int curSum = preSum + head.val;
 		if (!sumMap.containsKey(curSum)) {
 			sumMap.put(curSum, level);
 		}
@@ -48,7 +48,7 @@ public class Problem_06_LongestPathSum {
 			return;
 		}
 		printInOrder(head.right, height + 1, "v", len);
-		String val = to + head.value + to;
+		String val = to + head.val + to;
 		int lenM = val.length();
 		int lenL = (len - lenM) / 2;
 		int lenR = len - lenM - lenL;

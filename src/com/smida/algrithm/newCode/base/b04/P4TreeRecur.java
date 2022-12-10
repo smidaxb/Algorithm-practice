@@ -28,7 +28,7 @@ public class P4TreeRecur {
         if (null == head){
             return;
         }
-        System.out.print(head.value+" ");
+        System.out.print(head.val +" ");
         preRecur(head.left);
         preRecur(head.right);
     }
@@ -37,7 +37,7 @@ public class P4TreeRecur {
             return;
         }
         midRecur(head.left);
-        System.out.print(head.value+" ");
+        System.out.print(head.val +" ");
         midRecur(head.right);
     }
     private static void postRecur(TreeNode head) {
@@ -46,7 +46,7 @@ public class P4TreeRecur {
         }
         postRecur(head.left);
         postRecur(head.right);
-        System.out.print(head.value + " ");
+        System.out.print(head.val + " ");
     }
 
 

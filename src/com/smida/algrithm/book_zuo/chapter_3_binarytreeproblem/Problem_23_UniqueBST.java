@@ -2,9 +2,6 @@ package com.smida.algrithm.book_zuo.chapter_3_binarytreeproblem;
 
 import com.smida.algrithm.newCode.TreeNode;
 
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * 计算中序遍历为1~N的二叉树共有多少种
  * 当N<1时，返回1
@@ -62,7 +59,7 @@ public class Problem_23_UniqueBST {
             return;
         }
         printInOrder(head.right, height + 1, "v", len);
-        String val = to + head.value + to;
+        String val = to + head.val + to;
         int lenM = val.length();
         int lenL = (len - lenM) / 2;
         int lenR = len - lenM - lenL;
