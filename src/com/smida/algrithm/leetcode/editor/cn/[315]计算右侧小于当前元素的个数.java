@@ -5,7 +5,7 @@ import sun.security.util.ArrayUtil;
 import java.util.*;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution315 {
     int[] res;
     int[] tmp;
     int[] index;
