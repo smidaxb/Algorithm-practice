@@ -19,7 +19,7 @@ import com.smida.algrithm.newCode.TreeNode;
  * }
  * }
  */
-class Solution {
+class Solution222 {
     public int countNodes(TreeNode root) {
         if (root == null) {
             return 0;
